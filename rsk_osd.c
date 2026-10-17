@@ -667,6 +667,10 @@ static int osd_setup(struct app *a)
 
     a->surf = wl_compositor_create_surface(a->comp);
     wl_surface_set_buffer_scale(a->surf, scale);
+
+    struct wl_region *empty_reg = wl_compositor_create_region(a->comp);
+    wl_surface_set_input_region(a->surf, empty_reg);
+    wl_region_destroy(empty_reg);
     a->lsurf = zwlr_layer_shell_v1_get_layer_surface(
         a->layer, a->surf, a->out,
         ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY, "rsk-osd");
